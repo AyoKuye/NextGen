@@ -21,14 +21,13 @@ const Login = () => {
              
              {/* Inputs */}
              <div className='flex flex-col items-center justify-center'>
-              <input type='email' className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='Email'></input>
+              <input type='email' className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='User ID'></input>
               <input type="password" className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='Password'></input>
               <button className='rounded-2xl m-2 text-white bg-blue-400 w-2/5 px-4 py-2 shadow-md hover:text-blue-400 hover:bg-white transition duration-200 ease-in'>
                 Sign In
               </button>
              </div>
              <div className="inline-block border-[1px] justify-center w-20 border-blue-400 border-solid"></div>
-             <p className='text-blue-400 mt-4 text-sm'>Don't have an account?</p>
              <p className='text-blue-400 mb-4 text-sm font-medium cursor-pointer' onClick={() => setIsLogin(false)}>Create a New Account?</p>
           </div>
     )
@@ -44,7 +43,7 @@ const Login = () => {
              {/* Inputs */}
              <div className='flex flex-col items-center justify-center mt-2'>
              <input type="password" className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='Name'></input>
-              <input type='email' className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='Email'></input>
+              <input type='email' className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='User ID'></input>
               <input type="password" className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='Password'></input>
               <input type="password" className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='Retype Password'></input>
               <button className='rounded-2xl m-4 text-blue-400 bg-white w-3/5 px-4 py-2 shadow-md hover:text-white hover:bg-blue-400 transition duration-200 ease-in'>
@@ -52,7 +51,6 @@ const Login = () => {
               </button>
              </div>
              <div className="inline-block border-[1px] justify-center w-20 border-white border-solid"></div>
-             <p className='text-white mt-4 text-sm'>Already have an account?</p>
              <p className='text-white mb-4 text-sm font-medium cursor-pointer' onClick={() => setIsLogin(true)}>Sign In to your Account?</p>
           </div>
      )
@@ -63,7 +61,7 @@ const Login = () => {
     <main className="flex items-center w-full px-2 md:px-20">
       <div className="hidden md:inline-flex flex-col flex-1 space-y-1">
         <p className='text-6xl text-blue-500 font-bold'>NextGen</p>
-        <p className='font-medium text-lg leading-1 text-pink-400'>Create Team, checkout hardware</p>
+        <p className='font-medium text-lg leading-1 text-pink-400'>Create Team, checkout hardware!!</p>
       </div>
       {
         isLogin? (
