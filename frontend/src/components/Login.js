@@ -2,13 +2,13 @@ import React,{useState, useEffect} from 'react'
 import axios from 'axios';
 
 
-const backendLink="http://0c00-34-74-16-171.ngrok.io"
+const backendLink="http://dcd1-35-245-147-51.ngrok.io"
 
 const Login = () => {
 
   const [isLogin,setIsLogin] = useState(true);
 
-  const [loginEmail,setLoginEmail] = useState("");
+  const [loginUserID,setLoginUserID] = useState("");
   const [loginPassword,setLoginPassword] = useState("");
 
   const [registerUserID,setRegisterUserID] = useState("");
@@ -19,8 +19,8 @@ const Login = () => {
   const clickLogin=()=>{
 
     var data={};
-    data['userid']=registerUserID;
-    data['password']=registerPassword
+    data['userid']=loginUserID;
+    data['password']=loginPassword;
     
     console.log("send format",data);
 
@@ -37,7 +37,7 @@ const Login = () => {
     axios.post(backendLink+'/api/login/', data,config)
     .then((response) => {
       console.log(response.data);
-      alert("Done Computing!!");
+      alert("Done Login!!");
     }).catch((err)=>{
       console.log('err',err);
     });
@@ -71,7 +71,7 @@ const Login = () => {
     axios.post(backendLink+'/api/signup/', data,config)
     .then((response) => {
       console.log(response.data);
-      alert("Done Computing!!");
+      alert("Done Signup!!");
     }).catch((err)=>{
       console.log('err',err);
     });
@@ -88,10 +88,10 @@ const Login = () => {
              
              {/* Inputs */}
              <div className='flex flex-col items-center justify-center'>
-              <input type='userid' className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' 
-              placeholder='User ID' value={registerUserID} onChange={(e)=>{setRegisterUserID(e.target.value)}} ></input>
+              <input type='text' className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' 
+              placeholder='User ID' value={loginUserID} onChange={(e)=>{setLoginUserID(e.target.value)}} ></input>
               <input type="password" className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' 
-              placeholder='Password' value={registerPassword} onChange={(e)=>{setRegisterPassword(e.target.value)}}></input>
+              placeholder='Password' value={loginPassword} onChange={(e)=>{setLoginPassword(e.target.value)}}></input>
               <button className='rounded-2xl m-2 text-white bg-blue-400 w-2/5 px-4 py-2 shadow-md hover:text-blue-400 hover:bg-white transition duration-200 ease-in' onClick={() => clickLogin()}>
                 Sign In
               </button>
@@ -115,7 +115,7 @@ const Login = () => {
              placeholder='Name' value={registerName} 
              onChange={(e)=>setRegisterName(e.target.value)}>
              </input>
-              <input type='userid' className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' 
+              <input type='text' className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' 
               placeholder='User ID' value={registerUserID} 
               onChange={(e)=>setRegisterUserID(e.target.value)}>
               </input>
