@@ -1,4 +1,8 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
+import axios from 'axios';
+
+
+const backendLink="http://0c00-34-74-16-171.ngrok.io"
 
 const Login = () => {
 
@@ -7,10 +11,73 @@ const Login = () => {
   const [loginEmail,setLoginEmail] = useState("");
   const [loginPassword,setLoginPassword] = useState("");
 
-  const [registerEmail,setRegisterEmail] = useState("");
+  const [registerUserID,setRegisterUserID] = useState("");
   const [registerPassword,setRegisterPassword] = useState("");
   const [registerName,setRegisterName] = useState("");
-  const [registerAvatar,setRegisterAvatar] = useState("");
+  const [registerRePassword,setRegisterRePassword] = useState("");
+
+  const clickLogin=()=>{
+
+    var data={};
+    data['userid']=registerUserID;
+    data['password']=registerPassword
+    
+    console.log("send format",data);
+
+    const config={
+      headers:{
+        'content-type':'application/json',
+        "Access-Control-Allow-Origin":"*",
+        "Access-Control-Allow-Headers":"X-Requested-With",
+        "Content-Security-Policy": "upgrade-insecure-requests"
+      }
+    };
+
+
+    axios.post(backendLink+'/api/login/', data,config)
+    .then((response) => {
+      console.log(response.data);
+      alert("Done Computing!!");
+    }).catch((err)=>{
+      console.log('err',err);
+    });
+
+  };
+
+  const clickSignup=()=>{
+
+    if(registerPassword!=registerRePassword){
+      alert('Password and Confirm password is not equal!');
+      return;
+    }
+
+    var data={};
+    data['name']=registerName;
+    data['userid']=registerUserID;
+    data['password']=registerPassword;
+    
+    console.log("send format",data);
+
+    const config={
+      headers:{
+        'content-type':'application/json',
+        "Access-Control-Allow-Origin":"*",
+        "Access-Control-Allow-Headers":"X-Requested-With",
+        "Content-Security-Policy": "upgrade-insecure-requests"
+      }
+    };
+
+
+    axios.post(backendLink+'/api/signup/', data,config)
+    .then((response) => {
+      console.log(response.data);
+      alert("Done Computing!!");
+    }).catch((err)=>{
+      console.log('err',err);
+    });
+
+  };
+
   
   const LoginForm = () => {
     return(
@@ -21,9 +88,11 @@ const Login = () => {
              
              {/* Inputs */}
              <div className='flex flex-col items-center justify-center'>
-              <input type='email' className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='User ID'></input>
-              <input type="password" className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='Password'></input>
-              <button className='rounded-2xl m-2 text-white bg-blue-400 w-2/5 px-4 py-2 shadow-md hover:text-blue-400 hover:bg-white transition duration-200 ease-in'>
+              <input type='userid' className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' 
+              placeholder='User ID' value={registerUserID} onChange={(e)=>{setRegisterUserID(e.target.value)}} ></input>
+              <input type="password" className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' 
+              placeholder='Password' value={registerPassword} onChange={(e)=>{setRegisterPassword(e.target.value)}}></input>
+              <button className='rounded-2xl m-2 text-white bg-blue-400 w-2/5 px-4 py-2 shadow-md hover:text-blue-400 hover:bg-white transition duration-200 ease-in' onClick={() => clickLogin()}>
                 Sign In
               </button>
              </div>
@@ -35,18 +104,31 @@ const Login = () => {
   
   const  SignUpForm = () => {
      return(
-        <div className="bg-blue-400 text-white rounded-2xl shadow-2xl  flex flex-col w-full  md:w-1/3 items-center max-w-4xl transition duration-1000 ease-in">
+        <div className="bg-blue-400 text-black rounded-2xl shadow-2xl  flex flex-col w-full  md:w-1/3 items-center max-w-4xl transition duration-1000 ease-in">
               <h2 className='p-3 text-3xl font-bold text-white'>NextGen</h2>
              <div className="inline-block border-[1px] justify-center w-20 border-white border-solid"></div>
              <h3 className='text-xl font-semibold text-white pt-2'>Create Account!</h3>
              
              {/* Inputs */}
              <div className='flex flex-col items-center justify-center mt-2'>
-             <input type="password" className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='Name'></input>
-              <input type='email' className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='User ID'></input>
-              <input type="password" className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='Password'></input>
-              <input type="password" className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='Retype Password'></input>
-              <button className='rounded-2xl m-4 text-blue-400 bg-white w-3/5 px-4 py-2 shadow-md hover:text-white hover:bg-blue-400 transition duration-200 ease-in'>
+             <input type="name" className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' 
+             placeholder='Name' value={registerName} 
+             onChange={(e)=>setRegisterName(e.target.value)}>
+             </input>
+              <input type='userid' className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' 
+              placeholder='User ID' value={registerUserID} 
+              onChange={(e)=>setRegisterUserID(e.target.value)}>
+              </input>
+              <input type="password" className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' 
+              placeholder='Password' value={registerPassword} 
+              onChange={(e)=>{setRegisterPassword(e.target.value)}}>
+              </input>
+              <input type="password" className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' 
+              placeholder='Retype Password' value={registerRePassword} 
+              onChange={(e)=>{setRegisterRePassword(e.target.value)}}>
+              </input>
+              <button className='rounded-2xl m-4 text-blue-400 bg-white w-3/5 px-4 py-2 shadow-md hover:text-white hover:bg-blue-400 transition duration-200 ease-in' 
+              onClick={() => clickSignup()}>
                 Sign Up
               </button>
              </div>
