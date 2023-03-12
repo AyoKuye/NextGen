@@ -1,11 +1,13 @@
 import React,{useState, useEffect} from 'react'
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 
-const backendLink="http://dcd1-35-245-147-51.ngrok.io"
+const backendLink="http://4dcb-35-199-166-170.ngrok.io"
 
 const Login = () => {
 
+  const navigate = useNavigate();
   const [isLogin,setIsLogin] = useState(true);
 
   const [loginUserID,setLoginUserID] = useState("");
@@ -37,7 +39,13 @@ const Login = () => {
     axios.post(backendLink+'/api/login/', data,config)
     .then((response) => {
       console.log(response.data);
-      alert("Done Login!!");
+      if(response.data==208){
+        alert("User does not exist! Please SignUp")
+      }
+      else {
+        alert("Done Login")
+        navigate("/projects")
+      }
     }).catch((err)=>{
       console.log('err',err);
     });
@@ -71,6 +79,7 @@ const Login = () => {
     axios.post(backendLink+'/api/signup/', data,config)
     .then((response) => {
       console.log(response.data);
+      navigate("/projects");
       alert("Done Signup!!");
     }).catch((err)=>{
       console.log('err',err);
