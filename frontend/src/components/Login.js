@@ -1,6 +1,42 @@
 import React,{useState} from 'react'
+import axios from "axios";
 
 const Login = () => {
+
+    const [profileData, setProfileData] = useState(null)
+
+    function makePostRequest(email, pass, type) {
+        axios.post('/test', {userId: email, password: pass, type: type}).then(
+            (response) => {
+                let result = response.data;
+                console.log(result);
+                },
+            (error) => {
+                console.log(error);
+            }
+        );
+    }
+
+
+
+    function getData() {
+        axios({
+            method: "GET",
+            url:"/profile",
+        })
+            .then((response) => {
+                const res =response.data
+                setProfileData(({
+                    profile_name: res.name,
+                    about_me: res.about}))
+                console.log(res)
+            }).catch((error) => {
+                if (error.response) {
+                    console.log(error.response)
+                    console.log(error.response.status)
+                    console.log(error.response.headers)
+                }
+            })}
 
   const [isLogin,setIsLogin] = useState(true);
 
@@ -21,9 +57,23 @@ const Login = () => {
              
              {/* Inputs */}
              <div className='flex flex-col items-center justify-center'>
-              <input type='email' className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='User ID'></input>
-              <input type="password" className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='Password'></input>
-              <button className='rounded-2xl m-2 text-white bg-blue-400 w-2/5 px-4 py-2 shadow-md hover:text-blue-400 hover:bg-white transition duration-200 ease-in'>
+              <input id = 'input_email' type='email' className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='User ID'></input>
+              <input id = 'input_password' type="password" className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='Password'></input>
+              <button className='rounded-2xl m-2 text-white bg-blue-400 w-2/5 px-4 py-2 shadow-md hover:text-blue-400 hover:bg-white transition duration-200 ease-in'
+                      onClick={()=>{
+                          let email = document.getElementById('input_email').value;
+                          let pass = document.getElementById('input_password').value;
+                          if (email == ""){
+                              console.log("Empty email")
+                          }
+                          else if (pass == ""){
+                              console.log("Empty Password")
+                          }
+                          else{
+                              makePostRequest(email, pass, 'login')
+                          }
+                      }}
+              >
                 Sign In
               </button>
              </div>
@@ -46,7 +96,7 @@ const Login = () => {
               <input type='email' className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='User ID'></input>
               <input type="password" className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='Password'></input>
               <input type="password" className='rounded-2xl px-2 py-1 w-4/5 md:w-full border-[1px] border-blue-400 m-1 focus:shadow-md focus:border-pink-400 focus:outline-none focus:ring-0' placeholder='Retype Password'></input>
-              <button className='rounded-2xl m-4 text-blue-400 bg-white w-3/5 px-4 py-2 shadow-md hover:text-white hover:bg-blue-400 transition duration-200 ease-in'>
+              <button className='rounded-2xl m-4 text-blue-400 bg-white w-3/5 px-4 py-2 shadow-md hover:text-white hover:bg-blue-400 transition duration-200 ease-in' >
                 Sign Up
               </button>
              </div>
