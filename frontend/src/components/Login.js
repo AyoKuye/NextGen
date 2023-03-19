@@ -3,7 +3,7 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 
 
-const backendLink="http://4dcb-35-199-166-170.ngrok.io"
+const backendLink="https://396e-209-166-124-165.ngrok.io"
 
 const Login = () => {
 
@@ -31,15 +31,17 @@ const Login = () => {
         'content-type':'application/json',
         "Access-Control-Allow-Origin":"*",
         "Access-Control-Allow-Headers":"X-Requested-With",
-        "Content-Security-Policy": "upgrade-insecure-requests"
+        "Content-Security-Policy": "upgrade-insecure-requests",
+        "mode": "cors"
       }
     };
 
 
-    axios.post(backendLink+'/api/login/', data,config)
+
+    axios.post(backendLink+'/api/login/', data, config)
     .then((response) => {
       console.log(response.data);
-      if(response.data==208){
+      if(response.data['data']==208){
         alert("User does not exist! Please SignUp")
       }
       else {
