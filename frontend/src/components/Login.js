@@ -1,11 +1,15 @@
-import React,{useState, useEffect} from 'react'
+import React,{useState, useContext} from 'react'
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from '../context/Auth.context.js';
 
 
-const backendLink="https://396e-209-166-124-165.ngrok.io"
+const backendLink="http://127.0.0.1:5000"
 
 const Login = () => {
+
+
+  const { login } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const [isLogin,setIsLogin] = useState(true);
@@ -46,6 +50,7 @@ const Login = () => {
       }
       else {
         alert("Done Login")
+        login(loginUserID);
         navigate("/projects")
       }
     }).catch((err)=>{
@@ -73,7 +78,8 @@ const Login = () => {
         'content-type':'application/json',
         "Access-Control-Allow-Origin":"*",
         "Access-Control-Allow-Headers":"X-Requested-With",
-        "Content-Security-Policy": "upgrade-insecure-requests"
+        "Content-Security-Policy": "upgrade-insecure-requests",
+        "mode": "cors"
       }
     };
 

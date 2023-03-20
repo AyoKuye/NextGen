@@ -1,17 +1,20 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import pymongo
+import json
+from bson.json_util import dumps
 # from flask_cors import CORS
 
 api = Flask(__name__)
 cors = CORS(api)
 
-client = pymongo.MongoClient("mongodb+srv://nextgen:OVh1edzm5KoDudsU@cluster0.btngql0.mongodb.net/test")
-db = client.credentials
+client = pymongo.MongoClient(
+    "mongodb+srv://nextgen:OVh1edzm5KoDudsU@cluster0.btngql0.mongodb.net/test")
+passworddb = client.credentials
+projectdb = client.projects
 
-passwords = db.password
-
-
+passwords = passworddb.password
+projects = projectdb.project
 
 
 @api.route('/profile')
@@ -43,10 +46,30 @@ def sign():
     return jsonify({"data": "success"})
 
 
+@api.route('/api/createproject/', methods=['POST'])
+def createProject():
+    print(request.json)
+    users = []
+    users.append(request.json['user'])
+    projectDocument = {
+        "ProjectName": request.json['projectName'],
+        "hwset1": request.json['hwset1'],
+        "hwset2": request.json['hwset2'],
+        "users": users
+    }
+    projects.insert_one(projectDocument)
+    return jsonify({"data": "success"})
+
+
+@api.route('/api/getProjects/', methods=['POST', 'GET'])
+def getProjects():
+    data = list(projects.find())
+    return json.loads(dumps(data))
+
+
 def login(user_input, pass_input):
     myquery = {"userId": user_input, "password": pass_input}
     x = passwords.find_one(myquery)
     if (x == None):
         return False
     return True
-

@@ -1,59 +1,69 @@
-import React from 'react'
+import React,{ useContext, useEffect,useState } from 'react'
 import Project from './Project';
+import CreateProject from './CreateProject';
+import { AuthContext } from '../context/Auth.context.js';
+import { useNavigate } from "react-router-dom";
+import axios from 'axios';
+
+
+
+const backendLink="http://127.0.0.1:5000"
 
 function Projects() {
-    const projectData = [
-        {
-          id: 1,
-          name: 'Project Name 1',
-          users: ['User 1A', 'User 1B'],
-          hwSet1: {
-            maxQty: 100,
-            checkedOutQty: 50,
-          },
-          hwSet2: {
-            maxQty: 100,
-            checkedOutQty: 0,
-          },
-        },
-        {
-          id: 2,
-          name: 'Project Name 2',
-          users: ['User 2A', 'User 2B'],
-          hwSet1: {
-            maxQty: 100,
-            checkedOutQty: 50,
-          },
-          hwSet2: {
-            maxQty: 100,
-            checkedOutQty: 0,
-          },
-        },
-        {
-          id: 3,
-          name: 'Project Name 3',
-          users: ['User 3A', 'User 3B'],
-          hwSet1: {
-            maxQty: 100,
-            checkedOutQty: 0,
-          },
-          hwSet2: {
-            maxQty: 100,
-            checkedOutQty: 0,
-          },
-        },
-      ];
 
-      const projectsList = projectData.map((project) => (
-        <Project key={project.id} project={project} />
-      ));
+  const navigate = useNavigate();
+
+  const { logout ,user} = useContext(AuthContext);
+  const [projectData,setProjectData]=useState([]);
+
+  const onLogout = (e) => {
+    e.preventDefault();
+    logout();
+    navigate('/');
+  }
+
+  useEffect(()=>{
+    const config={
+      headers:{
+        'content-type':'application/json',
+        "Access-Control-Allow-Origin":"*",
+        "Access-Control-Allow-Headers":"X-Requested-With",
+        "Content-Security-Policy": "upgrade-insecure-requests",
+        "mode": "cors"
+      }
+    };
+
+    axios.post(backendLink+'/api/getProjects/', config)
+    .then((response) => {
+      if(response.data['data']==208){
+        alert("User does not exist! Please SignUp")
+      }
+      else {
+        setProjectData(response.data);
+      }
+    }).catch((err)=>{
+      console.log('err',err);
+    });
+  },[]);
         
   return (
-    <div className="bg-white flex justify-center flex-col px-10 align-middle content-center border-black border-2 border-solid m-10 w-fit">
-      <div className="font-bold my-5 px-3">
-        <h1>Projects</h1>
+    <div>
+      <div className="col-sm-4">
+        <h1>
+          <a href="/" onClick={onLogout}>Logout</a>
+        </h1>
       </div>
-      <div className="">{projectsList}</div>
+      <div className="bg-white flex justify-center flex-col px-10 align-middle content-center border-black border-2 border-solid m-10 w-fit">
+        <div className="font-bold my-5 px-3">
+          <h1>Projects</h1>
+        </div>
+        {projectData && projectData.map((project) => (
+          <Project key={project._id} project={project} />
+        ))}
+      </div>
+      <div>
+        <CreateProject/>
+      </div>  
     </div>
   )
 }
