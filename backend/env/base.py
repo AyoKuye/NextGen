@@ -37,13 +37,18 @@ def log():
 @api.route('/api/signup/', methods=['POST'])
 def sign():
     print(request.json)
-    passwordDocument = {
-        "name": request.json['name'],
-        "userId": request.json['userid'],
-        "password": request.json['password']
-    }
-    passwords.insert_one(passwordDocument)
-    return jsonify({"data": "success"})
+    myquery = {"userId": request.json['userid']}
+    x = passwords.find_one(myquery)
+    if (x == None):
+        password_document = {
+            "name": request.json['name'],
+            "userId": request.json['userid'],
+            "password": request.json['password']
+        }
+        passwords.insert_one(password_document)
+        return jsonify({"data": "success"})
+    return jsonify({"data": "failure"})
+
 
 
 @api.route('/api/createproject/', methods=['POST'])
