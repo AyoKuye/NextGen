@@ -10,6 +10,7 @@ function CreateProject({project}) {
 
     const {user} = useContext(AuthContext);
     const [projectName,setProjectName]=useState('');
+    const [projectID,setProjectID]=useState('');
     const [hwset1,setHWSet1]=useState('');
     const [hwset2,setHWSet2]=useState('');
 
@@ -34,9 +35,16 @@ function CreateProject({project}) {
     
 
     var data={};
+    data['projectID']=projectID;
     data['projectName']=projectName;
-    data['hwset1']=hwset1;
-    data['hwset2']=hwset2;
+    data['hwset1']={
+      'checkedOutQty':hwset1,
+      'maxQty':hwset1
+    };
+    data['hwset2']={
+      'checkedOutQty':hwset2,
+      'maxQty':hwset2
+    }
     data['user']=user;
 
     console.log("send format",data);
@@ -65,8 +73,18 @@ function CreateProject({project}) {
   return (
     <div className='bg-white flex justify-center flex-col align-middle content-cente m-10 w-fit'>
         <div className="border-black border-2 border-solid m-2 flex flex-row items-center align-middle bg-gray-100 w-700">
-        <div className="px-2">Project Name: </div>
-        <input type="text"  id="qty" className='w-25 py-1 px-1 m-1 border-solid border-2 border-black' placeholder="Project name" onChange={(e)=>setProjectName(e.target.value)}/>
+        <div>
+          <div className="px-2">Project ID: </div>
+          <div>
+            <input type="text"  id="qty" className='w-22 py-1 px-1 m-1 border-solid border-2 border-black' placeholder="Project ID" onChange={(e)=>setProjectID(e.target.value)}/>
+          </div>
+        </div>
+        <div>
+          <div className="px-2">Project Name: </div>
+          <div>
+            <input type="text"  id="qty" className='w-22 py-1 px-1 m-1 border-solid border-2 border-black' placeholder="Project Name" onChange={(e)=>setProjectName(e.target.value)}/>
+          </div>
+        </div>
         <div className='px-2 justify-between flex flex-col items-center mx-5'>
             <div className='my-1'>
                 HWSet1: 

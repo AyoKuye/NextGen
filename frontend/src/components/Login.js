@@ -101,8 +101,10 @@ const Login = () => {
         alert("username already exist!!");
       }
       else {
-        navigate("/projects");
+
         alert("Done Signup!!");
+        login(registerUserID);
+        navigate("/projects");
       }
     }).catch((err)=>{
       console.log('err',err);

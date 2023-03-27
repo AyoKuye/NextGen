@@ -13,7 +13,7 @@ function Projects() {
 
   const navigate = useNavigate();
 
-  const { logout, user} = useContext(AuthContext);
+  const { logout,state,user} = useContext(AuthContext);
   const [projectData,setProjectData]=useState([]);
 
   const onLogout = (e) => {
@@ -23,6 +23,13 @@ function Projects() {
   }
 
   useEffect(()=>{
+    
+    if(!state['isLoggedIn']){
+      navigate('/');
+      return;
+    }
+
+
     const config={
       headers:{
         'content-type':'application/json',

@@ -50,7 +50,6 @@ def sign():
     return jsonify({"data": "failure"})
 
 
-
 @api.route('/api/createproject/', methods=['POST'])
 def createProject():
     print(request.json)
@@ -68,6 +67,13 @@ def createProject():
 
 @api.route('/api/getProjects/', methods=['POST', 'GET'])
 def getProjects():
+    data = list(projects.find())
+    return json.loads(dumps(data))
+
+
+@api.route('/api/joinproject/', methods=['POST', 'GET'])
+def joinProject():
+    print(request.json)
     data = list(projects.find())
     return json.loads(dumps(data))
 

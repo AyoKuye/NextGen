@@ -3,13 +3,18 @@ import React,{useEffect, useState} from 'react'
 function Project({project}) {
     const [statusCheck,setStatusCheck]=useState(false);
 
+
+    useEffect(()=>{
+        console.log(project.hwset2.checkedOutQty)
+    },[]);
+
   return (
     <div className=''>
     {statusCheck
         ?
         <div className="border-black border-2 border-solid m-2 flex flex-row items-center align-middle bg-[#c0d19f] w-700">
         <div className="px-2">{project.ProjectName}</div>
-        <div className="px-2">
+        {/* <div className="px-2">
           <span id="">Authorized Users:</span>
           {project.users && project.users.map((user) => (
             <p className="" key={user}>
@@ -17,13 +22,13 @@ function Project({project}) {
             </p>
           ))
           }
-        </div>
+        </div> */}
             <div className='px-2 justify-between flex flex-col items-center mx-5'>
                 <div className='my-1'>
-                    HWSet1: {project.hwset1}/{project.hwset1}  
+                    HWSet1: {project.hwset1.checkedOutQty}/{project.hwset1.maxQty}  
                 </div>
                 <div className='my-1'>
-                    HWSet2: {project.hwset2}/{project.hwset2} 
+                    HWSet2: {project.hwset2.checkedOutQty}/{project.hwset2.maxQty}  
                 </div>
             </div>
             <div>
@@ -57,7 +62,7 @@ function Project({project}) {
         :
         <div className="border-black border-2 border-solid m-2 flex flex-row items-center align-middle bg-gray-100 w-700">
         <div className="px-2">{project.ProjectName}</div>
-        <div className="px-2">
+        {/* <div className="px-2">
           <span id="">Authorized Users:</span>
           {project.users && project.users.map((user) => (
             <p className="" key={user}>
@@ -65,13 +70,13 @@ function Project({project}) {
             </p>
           ))
           }
-        </div>
+        </div> */}
             <div className='px-2 justify-between flex flex-col items-center mx-5'>
                 <div className='my-1'>
-                    HWSet1: {project.hwset1}/{project.hwset1}  
+                    HWSet1: {project.hwset1.checkedOutQty}/{project.hwset1.maxQty}   
                 </div>
                 <div className='my-1'>
-                    HWSet2: {project.hwset2}/{project.hwset2} 
+                    HWSet2: {project.hwset2.checkedOutQty}/{project.hwset2.maxQty} 
                 </div>
             </div>
             <div>
