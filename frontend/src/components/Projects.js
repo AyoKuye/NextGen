@@ -16,12 +16,6 @@ function Projects() {
   const { logout,state,user} = useContext(AuthContext);
   const [projectData,setProjectData]=useState([]);
 
-  const onLogout = (e) => {
-    e.preventDefault();
-    logout();
-    navigate('/');
-  }
-
   useEffect(()=>{
     
     if(!state['isLoggedIn']){
@@ -55,11 +49,6 @@ function Projects() {
         
   return (
     <div>
-      <div className="col-sm-4">
-        <h1>
-          <a href="/" onClick={onLogout}>Logout</a>
-        </h1>
-      </div>
       <div className="bg-white flex justify-center flex-col px-10 align-middle content-center border-black border-2 border-solid m-10 w-fit">
         <div className="font-bold my-5 px-3">
           <h1>Projects</h1>

@@ -56,7 +56,7 @@ const Login = () => {
       else {
         alert("Done Login")
         login(loginUserID);
-        navigate("/projects")
+        navigate("/home")
       }
     }).catch((err)=>{
       console.log('err',err);
@@ -104,7 +104,7 @@ const Login = () => {
 
         alert("Done Signup!!");
         login(registerUserID);
-        navigate("/projects");
+        navigate("/home");
       }
     }).catch((err)=>{
       console.log('err',err);

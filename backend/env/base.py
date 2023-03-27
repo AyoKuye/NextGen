@@ -71,11 +71,24 @@ def getProjects():
     return json.loads(dumps(data))
 
 
-@api.route('/api/joinproject/', methods=['POST', 'GET'])
-def joinProject():
-    print(request.json)
-    data = list(projects.find())
-    return json.loads(dumps(data))
+@api.route('/api/checkin/<projectid>/<qty>', methods=['POST', 'GET'])
+def checkIn_hardware(projectid, qty):
+    return jsonify(projectid, qty)
+
+
+@api.route('/api/checkout/<projectid>/<qty>', methods=['POST', 'GET'])
+def checkOut_hardware(projectid, qty):
+    return jsonify(projectid, qty)
+
+
+@api.route('/api/join/<projectid>', methods=['POST', 'GET'])
+def joinProject(projectid):
+    return projectid
+
+
+@api.route('/api/leave/<projectid>', methods=['POST', 'GET'])
+def leaveProject(projectid):
+    return projectid
 
 
 def login(user_input, pass_input):

@@ -4,10 +4,132 @@ function Project({project}) {
     const [statusCheck,setStatusCheck]=useState(false);
 
 
-    useEffect(()=>{
-        console.log(project.hwset2.checkedOutQty)
-    },[]);
 
+  const clickCheckin1=()=>{
+
+
+    const config={
+      headers:{
+        'content-type':'application/json',
+        "Access-Control-Allow-Origin":"*",
+        "Access-Control-Allow-Headers":"X-Requested-With",
+        "Content-Security-Policy": "upgrade-insecure-requests",
+        "mode": "cors"
+      }
+    };
+
+
+
+    axios.post(backendLink+'/api/checkin/'+project.id+"/"+hwset1qty, config)
+    .then((response) => {
+        alert(response.data[1]+' hardware checked in');
+    }).catch((err)=>{
+      console.log('err',err);
+    });
+
+  };
+
+
+  const clickCheckout1=()=>{
+
+    const config={
+      headers:{
+        'content-type':'application/json',
+        "Access-Control-Allow-Origin":"*",
+        "Access-Control-Allow-Headers":"X-Requested-With",
+        "Content-Security-Policy": "upgrade-insecure-requests",
+        "mode": "cors"
+      }
+    };
+
+
+
+    axios.post(backendLink+'/api/checkout/'+project.id+"/"+hwset1qty, config)
+    .then((response) => {
+        alert(response.data[1]+' hardware checked out');
+    }).catch((err)=>{
+      console.log('err',err);
+    });
+
+  };
+
+
+  const clickCheckin2=()=>{
+
+
+    const config={
+      headers:{
+        'content-type':'application/json',
+        "Access-Control-Allow-Origin":"*",
+        "Access-Control-Allow-Headers":"X-Requested-With",
+        "Content-Security-Policy": "upgrade-insecure-requests",
+        "mode": "cors"
+      }
+    };
+
+
+
+    axios.post(backendLink+'/api/checkin/'+project.id+"/"+hwset2qty, config)
+    .then((response) => {
+        alert(response.data[1]+' hardware checked in');
+    }).catch((err)=>{
+      console.log('err',err);
+    });
+
+  };
+
+
+  const clickCheckout2=()=>{
+
+    const config={
+      headers:{
+        'content-type':'application/json',
+        "Access-Control-Allow-Origin":"*",
+        "Access-Control-Allow-Headers":"X-Requested-With",
+        "Content-Security-Policy": "upgrade-insecure-requests",
+        "mode": "cors"
+      }
+    };
+
+
+
+    axios.post(backendLink+'/api/checkout/'+project.id+"/"+hwset2qty, config)
+    .then((response) => {
+        alert(response.data[1]+' hardware checked out');
+    }).catch((err)=>{
+      console.log('err',err);
+    });
+
+  };
+
+
+  const clickLeft=()=>{
+
+    setStatusCheck(false);
+
+    const config={
+      headers:{
+        'content-type':'application/json',
+        "Access-Control-Allow-Origin":"*",
+        "Access-Control-Allow-Headers":"X-Requested-With",
+        "Content-Security-Policy": "upgrade-insecure-requests",
+        "mode": "cors"
+      }
+    };
+
+
+
+    axios.post(backendLink+'/api/leave/'+project.id, config)
+    .then((response) => {
+        console.log(response.data);
+        alert('Left '+response.data);
+    }).catch((err)=>{
+      console.log('err',err);
+    });
+
+  };
+
+  
   return (
     <div className=''>
     {statusCheck
