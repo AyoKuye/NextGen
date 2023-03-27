@@ -24,6 +24,11 @@ const Login = () => {
 
   const clickLogin=()=>{
 
+    if(loginUserID.length==0 || loginPassword.length==0){
+      alert("Please enter the detail!!");
+      return;
+    }
+
     var data={};
     data['userid']=loginUserID;
     data['password']=loginPassword;
@@ -61,6 +66,11 @@ const Login = () => {
 
   const clickSignup=()=>{
 
+    if(registerName.length==0 || registerUserID.length==0 || registerPassword.length==0){
+      alert("Please enter the detail!!");
+      return;
+    }
+
     if(registerPassword!=registerRePassword){
       alert('Password and Confirm password is not equal!');
       return;
@@ -87,8 +97,13 @@ const Login = () => {
     axios.post(backendLink+'/api/signup/', data,config)
     .then((response) => {
       console.log(response.data);
-      navigate("/projects");
-      alert("Done Signup!!");
+      if(response.data['data']=='failure'){
+        alert("username already exist!!");
+      }
+      else {
+        navigate("/projects");
+        alert("Done Signup!!");
+      }
     }).catch((err)=>{
       console.log('err',err);
     });
