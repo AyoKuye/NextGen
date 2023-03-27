@@ -12,9 +12,11 @@ client = pymongo.MongoClient(
     "mongodb+srv://nextgen:OVh1edzm5KoDudsU@cluster0.btngql0.mongodb.net/test")
 passworddb = client.credentials
 projectdb = client.projects
+usersdb = client.users
 
 passwords = passworddb.password
 projects = projectdb.project
+users = usersdb.user
 
 
 @api.route('/profile')
@@ -81,8 +83,8 @@ def checkOut_hardware(projectid, qty):
     return jsonify(projectid, qty)
 
 
-@api.route('/api/join/<projectid>', methods=['POST', 'GET'])
-def joinProject(projectid):
+@api.route('/api/join/<projectid>/<userid>', methods=['POST', 'GET'])
+def joinProject(projectid, userid):
     return projectid
 
 

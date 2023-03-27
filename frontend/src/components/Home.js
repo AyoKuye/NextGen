@@ -30,7 +30,7 @@ function Home() {
 
 
 
-    axios.post(backendLink+'/api/join/'+projectid, config)
+    axios.post(backendLink+'/api/join/'+projectid+'/'+user, config)
     .then((response) => {
         console.log(response.data);
         alert('Joined '+response.data);
