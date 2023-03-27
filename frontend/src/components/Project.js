@@ -1,7 +1,13 @@
 import React,{useEffect, useState} from 'react'
+import axios from 'axios';
+
+const backendLink="http://127.0.0.1:5000"
 
 function Project({project}) {
     const [statusCheck,setStatusCheck]=useState(false);
+
+    const [hwset1qty,setHWSet1qty]=useState(0);
+    const [hwset2qty,setHWSet2qty]=useState(0);
 
 
 
@@ -129,7 +135,7 @@ function Project({project}) {
 
   };
 
-  
+
   return (
     <div className=''>
     {statusCheck

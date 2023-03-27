@@ -1,9 +1,10 @@
 import React,{ useContext, useEffect,useState } from 'react'
 import Projects from './Projects'
-
+import axios from 'axios';
 import { useNavigate } from "react-router-dom";
-
 import { AuthContext } from '../context/Auth.context.js';
+
+const backendLink="http://127.0.0.1:5000"
 
 function Home() {
 
@@ -16,9 +17,6 @@ function Home() {
 
  
   const clickJoin=()=>{
-
-    setStatusCheck(true);
-
 
     const config={
       headers:{
