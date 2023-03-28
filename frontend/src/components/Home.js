@@ -52,15 +52,16 @@ function Home() {
   return (
     <div className='flex flex-col'>
       <div className='flex justify-between'>
-        <div className="col-sm-4">
-          <h1>
-            <a href="/" onClick={onLogout} className='bg-gray-300 p-2 m-1'>Logout</a>
-          </h1>
-        </div>
-        <div className=''>
-          <input type="text" id="qty" className='w-40 items-center align-middle py-1 px-1 m-1 border-solid border-2 border-black' placeholder="Project ID" onChange={(e)=>setProjectID(e.target.value)}/>
+      <div className='align-middle justify-center mx-20 my-10'>
+          <input type="text" id="qty" className='w-60 items-center align-middle py-1 px-1 m-1 border-solid border-2 border-black' placeholder="Project ID" onChange={(e)=>setProjectID(e.target.value)}/>
           <button id="join" className = "bg-gray-300 p-2 m-1" onClick={()=>{clickJoin()}}>Join</button>
         </div>
+        <div className="col-sm-4">
+          <h1>
+            <a href="/" onClick={onLogout} className='p-2 m-6'>Logout</a>
+          </h1>
+        </div>
+        
       </div>
       <Projects/>
     </div>

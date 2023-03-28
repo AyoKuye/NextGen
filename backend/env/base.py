@@ -67,8 +67,8 @@ def createProject():
     return jsonify({"data": "success"})
 
 
-@api.route('/api/getProjects/', methods=['POST', 'GET'])
-def getProjects():
+@api.route('/api/getProjects/<user>', methods=['POST', 'GET'])
+def getProjects(user):
     data = list(projects.find())
     return json.loads(dumps(data))
 

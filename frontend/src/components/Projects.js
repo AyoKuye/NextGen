@@ -34,7 +34,7 @@ function Projects() {
       }
     };
 
-    axios.post(backendLink+'/api/getProjects/', config)
+    axios.post(backendLink+'/api/getProjects/'+user, config)
     .then((response) => {
       if(response.data['data']==208){
         alert("User does not exist! Please SignUp")
