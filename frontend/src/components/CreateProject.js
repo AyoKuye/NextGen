@@ -37,14 +37,8 @@ function CreateProject({project}) {
     var data={};
     data['projectID']=projectID;
     data['projectName']=projectName;
-    data['hwset1']={
-      'checkedOutQty':hwset1,
-      'maxQty':hwset1
-    };
-    data['hwset2']={
-      'checkedOutQty':hwset2,
-      'maxQty':hwset2
-    }
+    data['hwset1']=hwset1;
+    data['hwset2']=hwset2;
     data['user']=user;
 
     console.log("send format",data);
