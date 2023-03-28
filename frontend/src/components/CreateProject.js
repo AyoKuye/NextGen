@@ -37,8 +37,6 @@ function CreateProject({project}) {
     var data={};
     data['projectID']=projectID;
     data['projectName']=projectName;
-    data['hwset1']=hwset1;
-    data['hwset2']=hwset2;
     data['user']=user;
 
     console.log("send format",data);
@@ -78,22 +76,6 @@ function CreateProject({project}) {
           <div>
             <input type="text"  id="qty" className='w-22 py-1 px-1 m-1 border-solid border-2 border-black' placeholder="Project Name" onChange={(e)=>setProjectName(e.target.value)}/>
           </div>
-        </div>
-        <div className='px-2 justify-between flex flex-col items-center mx-5'>
-            <div className='my-1'>
-                HWSet1: 
-            </div>
-            <div className='my-1'>
-                HWSet2: 
-            </div>
-        </div>
-        <div>
-            <div>
-                <input type="number" id="qty" className='w-25 py-1 px-1 m-1 border-solid border-2 border-black' placeholder="Enter qty" onChange={(e)=>setHWSet1(e.target.value)}/>
-            </div>
-            <div>
-                <input type="number"  id="qty" className='w-25 py-1 px-1 m-1 border-solid border-2 border-black' placeholder="Enter qty" onChange={(e)=>setHWSet2(e.target.value)} />
-            </div>
         </div>
         <div>
           <button id="join-leave" className = "bg-gray-300 py-2 px-4 m-2" onClick={()=>createProject()}>Create Project</button> 
