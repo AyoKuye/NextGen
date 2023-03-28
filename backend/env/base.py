@@ -90,6 +90,7 @@ def createProject():
 
     myquery2 = {"userId": request.json['user']}
     x2 = users.find_one(myquery2)
+    print(x2['projectId'])
     x3 = {"$set": {'projectId': x2['projectId'].append(request.json['projectID'])}}
     users.update_one(x2, x3)
 
