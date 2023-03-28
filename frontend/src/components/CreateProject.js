@@ -11,8 +11,6 @@ function CreateProject({project}) {
     const {user} = useContext(AuthContext);
     const [projectName,setProjectName]=useState('');
     const [projectID,setProjectID]=useState('');
-    const [hwset1,setHWSet1]=useState('');
-    const [hwset2,setHWSet2]=useState('');
 
 
   const createProject=()=>{
@@ -20,16 +18,6 @@ function CreateProject({project}) {
 
     if(projectName.length==0){
         alert('Please enter the value in Project Name.');
-        return;
-    }
-
-    if(hwset1.length==0){
-        alert('Please enter the value in HWSet1.');
-        return;
-    }
-    
-    if(hwset2.length==0){
-        alert('Please enter the value in HWSet2.');
         return;
     }
     
