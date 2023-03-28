@@ -8,26 +8,21 @@ from bson.json_util import dumps
 api = Flask(__name__)
 cors = CORS(api)
 
-client = pymongo.MongoClient(
-    "mongodb+srv://nextgen:OVh1edzm5KoDudsU@cluster0.btngql0.mongodb.net/test")
+client = pymongo.MongoClient("mongodb+srv://nextgen:OVh1edzm5KoDudsU@cluster0.btngql0.mongodb.net/test")
+
 passworddb = client.credentials
 projectdb = client.projects
 usersdb = client.users
+hardwaredb = client.hardwareSet
 
 passwords = passworddb.password
 projects = projectdb.project
 users = usersdb.user
 
-
-@api.route('/profile')
-def my_profile():
-    response_body = {
-        "name": "Nagato",
-        "about": "Hello! I'm a full stack developer that loves python and javascript"
-    }
-    return response_body
-
-
+# Incoming- {'userid': , 'password': }
+# Outgoing-
+# if success {"data": 200}
+# if failure {"data": 208}
 @api.route('/api/login/', methods=['POST'])
 def log():
     print(request.json)
@@ -36,6 +31,18 @@ def log():
     return jsonify({"data": 208})
 
 
+def login(user_input, pass_input):
+    myquery = {"userId": user_input, "password": pass_input}
+    x = passwords.find_one(myquery)
+    if (x == None):
+        return False
+    return True
+
+
+# Incoming - {"userid":"", "name":"", "password": ""}
+# Outgoing -
+# if success {"data": "success"}
+# if failure {"data": "failure"}
 @api.route('/api/signup/', methods=['POST'])
 def sign():
     print(request.json)
@@ -48,22 +55,45 @@ def sign():
             "password": request.json['password']
         }
         passwords.insert_one(password_document)
+        user_document = {
+            "userId": request.json['userid'],
+            "projectId": []
+        }
+        users.insert_one(user_document)
         return jsonify({"data": "success"})
     return jsonify({"data": "failure"})
 
 
+# Incoming- {"projectName" : "", "projectID" : "", "user":""}
+# Outgoing -
+# if success {"data": "success"}
+# if failure {"data": "failure"}
 @api.route('/api/createproject/', methods=['POST'])
 def createProject():
     print(request.json)
-    users = []
-    users.append(request.json['user'])
+    myquery = {"ProjectId": request.json['projectID']}
+    x = projects.find_one(myquery)
+    if x != None:
+        return jsonify({"data": "failure"})
+
+    projectUsers = []
+    projectUsers.append(request.json['user'])
     projectDocument = {
         "ProjectName": request.json['projectName'],
-        "hwset1": request.json['hwset1'],
-        "hwset2": request.json['hwset2'],
-        "users": users
+        "ProjectId": request.json['projectID'],
+        "hwset1": 0,
+        "hwset2": 0,
+        "users": projectUsers
     }
     projects.insert_one(projectDocument)
+
+    myquery2 = {"userId": request.json['user']}
+    x2 = users.find_one(myquery2)
+    x3 = x2
+    x2['projectId'] = x2['projectId'].append(request.json['projectID'])
+    users.update_one(x3, x2)
+
+
     return jsonify({"data": "success"})
 
 
@@ -93,9 +123,4 @@ def leaveProject(projectid):
     return projectid
 
 
-def login(user_input, pass_input):
-    myquery = {"userId": user_input, "password": pass_input}
-    x = passwords.find_one(myquery)
-    if (x == None):
-        return False
-    return True
+
