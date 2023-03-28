@@ -93,11 +93,14 @@ def createProject():
 
     myquery2 = {"userId": request.json['user']}
     x2 = users.find_one(myquery2)
-    xx = list(x2['projectId'])
-    xx = xx.append('op')
-    print(xx)
-    x3 = {"$set": {'projectId': xx}}
-    users.update_one(x2, x3)
+    temp2 = list(x2['projectId'])
+    newstr = request.json['projectID']
+    print(type(temp2))
+    print(newstr)
+    temp2.append(newstr)
+    print(temp2)
+    x3 = {"$set": {'projectId': temp2}}
+    users.update_one(myquery2, x3)
 
     return jsonify({"data": "success"})
 
