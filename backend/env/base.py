@@ -57,7 +57,7 @@ def sign():
         passwords.insert_one(password_document)
         user_document = {
             "userId": request.json['userid'],
-            "projectId": []
+            "projectId": list()
         }
         users.insert_one(user_document)
         return jsonify({"data": "success"})
@@ -90,9 +90,14 @@ def createProject():
 
     myquery2 = {"userId": request.json['user']}
     x2 = users.find_one(myquery2)
-    print(x2['projectId'])
-    x3 = {"$set": {'projectId': x2['projectId'].append(request.json['projectID'])}}
-    users.update_one(x2, x3)
+    temp2 = x2['projectId']
+    newstr = request.json['projectID']
+    print(type(temp2))
+    print(newstr)
+    temp2.append(newstr)
+    print(temp2)
+    x3 = {"$set": {'projectId': temp2}}
+    users.update_one(myquery2, x3)
 
 
     return jsonify({"data": "success"})
