@@ -74,6 +74,7 @@ def createProject():
     myquery = {"ProjectId": request.json['projectID']}
     x = projects.find_one(myquery)
     if x != None:
+        print("failure")
         return jsonify({"data": "failure"})
 
     projectUsers = []
@@ -89,9 +90,8 @@ def createProject():
 
     myquery2 = {"userId": request.json['user']}
     x2 = users.find_one(myquery2)
-    x3 = x2
-    x2['projectId'] = x2['projectId'].append(request.json['projectID'])
-    users.update_one(x3, x2)
+    x3 = {"$set": {'projectId': x2['projectId'].append(request.json['projectID'])}}
+    users.update_one(x2, x3)
 
 
     return jsonify({"data": "success"})
