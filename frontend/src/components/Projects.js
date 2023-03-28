@@ -13,7 +13,7 @@ function Projects() {
 
   const navigate = useNavigate();
 
-  const { logout,state,user} = useContext(AuthContext);
+  const { logout,state,user,projectState,setProjectState} = useContext(AuthContext);
   const [projectData,setProjectData]=useState([]);
 
   useEffect(()=>{
@@ -23,6 +23,8 @@ function Projects() {
       return;
     }
 
+    
+    setProjectState(false);
 
     const config={
       headers:{
@@ -45,7 +47,7 @@ function Projects() {
     }).catch((err)=>{
       console.log('err',err);
     });
-  },[]);
+  },[projectState]);
         
   return (
     <div>

@@ -8,7 +8,8 @@ from bson.json_util import dumps
 api = Flask(__name__)
 cors = CORS(api)
 
-client = pymongo.MongoClient("mongodb+srv://nextgen:OVh1edzm5KoDudsU@cluster0.btngql0.mongodb.net/test")
+client = pymongo.MongoClient(
+    "mongodb+srv://nextgen:OVh1edzm5KoDudsU@cluster0.btngql0.mongodb.net/test")
 
 passworddb = client.credentials
 projectdb = client.projects
@@ -23,6 +24,8 @@ users = usersdb.user
 # Outgoing-
 # if success {"data": 200}
 # if failure {"data": 208}
+
+
 @api.route('/api/login/', methods=['POST'])
 def log():
     print(request.json)
@@ -57,7 +60,7 @@ def sign():
         passwords.insert_one(password_document)
         user_document = {
             "userId": request.json['userid'],
-            "projectId": []
+            "projectId": list()
         }
         users.insert_one(user_document)
         return jsonify({"data": "success"})
@@ -90,10 +93,11 @@ def createProject():
 
     myquery2 = {"userId": request.json['user']}
     x2 = users.find_one(myquery2)
-    print(x2['projectId'])
-    x3 = {"$set": {'projectId': x2['projectId'].append(request.json['projectID'])}}
+    xx = list(x2['projectId'])
+    xx = xx.append('op')
+    print(xx)
+    x3 = {"$set": {'projectId': xx}}
     users.update_one(x2, x3)
-
 
     return jsonify({"data": "success"})
 
@@ -122,6 +126,3 @@ def joinProject(projectid, userid):
 @api.route('/api/leave/<projectid>', methods=['POST', 'GET'])
 def leaveProject(projectid):
     return projectid
-
-
-

@@ -8,7 +8,7 @@ const backendLink="http://127.0.0.1:5000"
 function CreateProject({project}) {
 
 
-    const {user} = useContext(AuthContext);
+    const {user,projectState,setProjectState} = useContext(AuthContext);
     const [projectName,setProjectName]=useState('');
     const [projectID,setProjectID]=useState('');
 
@@ -20,6 +20,8 @@ function CreateProject({project}) {
         alert('Please enter the value in Project Name.');
         return;
     }
+
+    setProjectState(true);
     
 
     var data={};
@@ -43,6 +45,10 @@ function CreateProject({project}) {
     axios.post(backendLink+'/api/createproject/', data,config)
     .then((response) => {
       console.log(response.data);
+      if(response.data['data']=='failure'){
+        alert("Project id already exist!")
+        return;
+      }
       alert("Created Project!!");
     }).catch((err)=>{
       console.log('err',err);

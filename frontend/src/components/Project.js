@@ -1,10 +1,14 @@
-import React,{useEffect, useState} from 'react'
+import React,{useEffect, useContext, useState} from 'react'
 import axios from 'axios';
+
+import { AuthContext } from '../context/Auth.context.js';
 
 const backendLink="http://127.0.0.1:5000"
 
-function Project({project}) {
+function Project({project,hwset}) {
 
+
+    const { projectState,setProjectState} = useContext(AuthContext);
     const [hwset1qty,setHWSet1qty]=useState(0);
     const [hwset2qty,setHWSet2qty]=useState(0);
 
@@ -110,6 +114,8 @@ function Project({project}) {
 
   const clickLeft=()=>{
 
+    setProjectState(true);
+
     const config={
       headers:{
         'content-type':'application/json',
@@ -148,10 +154,10 @@ function Project({project}) {
         </div> */}
             <div className='px-2 justify-between flex flex-col items-center mx-5'>
                 <div className='my-1'>
-                    HWSet1: {project.hwset1.checkedOutQty}/{project.hwset1.maxQty}  
+                    {/* HWSet1: {hwset.hwset1.checkedOutQty}/100   */}
                 </div>
                 <div className='my-1'>
-                    HWSet2: {project.hwset2.checkedOutQty}/{project.hwset2.maxQty}  
+                    {/* HWSet2: {hwset.hwset2.checkedOutQty}/100   */}
                 </div>
             </div>
             <div>

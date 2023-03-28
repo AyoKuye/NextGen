@@ -13,6 +13,8 @@ export const ContextProvider = props => {
   const [state, setState] = useState(initialState);
   const [user,setUser]=useState('');
 
+  const [projectState,setProjectState]=useState(true);
+
   const setLoginPending = (isLoginPending) => setState({isLoginPending});
   const setLoginSuccess = (isLoggedIn) => setState({isLoggedIn});
   const setLoginError = (loginError) => setState({loginError});
@@ -34,7 +36,9 @@ export const ContextProvider = props => {
         state,
         login,
         logout,
-        user
+        user,
+        projectState,
+        setProjectState
       }}
     >
       {props.children}
