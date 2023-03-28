@@ -89,10 +89,10 @@ function CreateProject({project}) {
         </div>
         <div>
             <div>
-                <input type="text" id="qty" className='w-20 py-1 px-1 m-1 border-solid border-2 border-black' placeholder="Enter qty" onChange={(e)=>setHWSet1(e.target.value)}/>
+                <input type="number" id="qty" className='w-20 py-1 px-1 m-1 border-solid border-2 border-black' placeholder="Enter qty" onChange={(e)=>setHWSet1(e.target.value)}/>
             </div>
             <div>
-                <input type="text"  id="qty" className='w-20 py-1 px-1 m-1 border-solid border-2 border-black' placeholder="Enter qty" onChange={(e)=>setHWSet2(e.target.value)} />
+                <input type="number"  id="qty" className='w-20 py-1 px-1 m-1 border-solid border-2 border-black' placeholder="Enter qty" onChange={(e)=>setHWSet2(e.target.value)} />
             </div>
         </div>
         <div>
