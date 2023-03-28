@@ -23,6 +23,8 @@ function Projects() {
       return;
     }
 
+    if(!projectState)return;
+
     
     setProjectState(false);
 
