@@ -29,7 +29,7 @@ function Project({project,hwset}) {
 
 
 
-    axios.post(backendLink+'/api/checkin/'+project.ProjectId+"/"+hwset1qty, config)
+    axios.post(backendLink+'/api/checkin/'+project.ProjectId+"/"+"hwset1"+"/"+hwset1qty, config)
     .then((response) => {
         alert(response.data['data']+' hardware checked in');
     }).catch((err)=>{
@@ -53,7 +53,7 @@ function Project({project,hwset}) {
 
 
 
-    axios.post(backendLink+'/api/checkout/'+project.ProjectId+"/"+hwset1qty, config)
+    axios.post(backendLink+'/api/checkout/'+project.ProjectId+"/"+"hwset1"+"/"+hwset1qty, config)
     .then((response) => {
         alert(response.data[1]+' hardware checked out');
     }).catch((err)=>{
@@ -78,7 +78,7 @@ function Project({project,hwset}) {
 
 
 
-    axios.post(backendLink+'/api/checkin/'+project.ProjectId+"/"+hwset2qty, config)
+    axios.post(backendLink+'/api/checkin/'+project.ProjectId+"/"+"hwset2"+"/"+hwset2qty, config)
     .then((response) => {
         alert(response.data[1]+' hardware checked in');
     }).catch((err)=>{
@@ -102,7 +102,7 @@ function Project({project,hwset}) {
 
 
 
-    axios.post(backendLink+'/api/checkout/'+project.ProjectId+"/"+hwset2qty, config)
+    axios.post(backendLink+'/api/checkout/'+project.ProjectId+"/"+"hwset2"+"/"+hwset2qty, config)
     .then((response) => {
         alert(response.data[1]+' hardware checked out');
     }).catch((err)=>{
