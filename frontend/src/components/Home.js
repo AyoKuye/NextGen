@@ -19,7 +19,6 @@ function Home() {
   const clickJoin=()=>{
 
 
-    setProjectState(true);
 
     const config={
       headers:{
@@ -36,10 +35,19 @@ function Home() {
     axios.post(backendLink+'/api/join/'+projectid+'/'+user, config)
     .then((response) => {
         console.log(response.data);
-        alert('Joined '+response.data);
+        if(response.data["id"]=='failure'){
+          alert(response.data['data']);
+        }
+        else {
+          alert('Joined '+response.data['data']);
+        }
+
+        setProjectState(true);
     }).catch((err)=>{
       console.log('err',err);
     });
+
+
 
   };
 

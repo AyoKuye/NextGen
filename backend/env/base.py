@@ -107,21 +107,21 @@ def createProject():
 
 @api.route('/api/getProjects/<user>', methods=['POST', 'GET'])
 def getProjects(user):
-    data = list(projects.find())
-    return json.loads(dumps(data))
+    myquery = {"userId": user}
+    userlist = list(users.find_one(myquery)['projectId'])
+
+    allproject = []
+
+    for project in userlist:
+        myquery2 = {"ProjectId": project}
+        x = projects.find_one(myquery2)
+        allproject.append(x)
+
+    return json.loads(dumps(allproject))
 
 
 @api.route('/api/checkin/<projectid>/<qty>', methods=['POST', 'GET'])
 def checkIn_hardware(projectid, qty):
-    myquery = {"ProjectId": projectid}
-    x = projects.find_one(myquery)
-    if x is None:
-        return jsonify({"data": "failure"})
-
-    new_qty = x['hwset1'] + int(qty)
-    projects.update_one(myquery, {"$set": {"hwset1": new_qty}})
-
-    return jsonify({"data": "success"})
     myquery = {"ProjectId": projectid}
     x = projects.find_one(myquery)
     if x is None:
@@ -147,18 +147,6 @@ def checkOut_hardware(projectid, qty):
     projects.update_one(myquery, {"$set": {"hwset1": new_qty}})
 
     return jsonify({"data": "success"})
-    myquery = {"ProjectId": projectid}
-    x = projects.find_one(myquery)
-    if x is None:
-        return jsonify({"data": "failure"})
-
-    new_qty = x['hwset1'] - int(qty)
-    if new_qty < 0:
-        return jsonify({"data": "failure"})
-
-    projects.update_one(myquery, {"$set": {"hwset1": new_qty}})
-
-    return jsonify({"data": "success"})
 
 
 @api.route('/api/join/<projectid>/<userid>', methods=['POST', 'GET'])
@@ -166,30 +154,11 @@ def joinProject(projectid, userid):
     myquery = {"ProjectId": projectid}
     x = projects.find_one(myquery)
     if x is None:
-        return jsonify({"data": "failure"})
+        return jsonify({"id": "failure", "data": "Project don't exist!"})
 
     projectUsers = x['users']
     if userid in projectUsers:
-        return jsonify({"data": "failure"})
-
-    projectUsers.append(userid)
-    projects.update_one(myquery, {"$set": {"users": projectUsers}})
-
-    myquery2 = {"userId": userid}
-    x2 = users.find_one(myquery2)
-    temp2 = list(x2['projectId'])
-    temp2.append(projectid)
-    users.update_one(myquery2, {"$set": {'projectId': temp2}})
-
-    return jsonify({"data": "success"})
-    myquery = {"ProjectId": projectid}
-    x = projects.find_one(myquery)
-    if x is None:
-        return jsonify({"data": "failure"})
-
-    projectUsers = x['users']
-    if userid in projectUsers:
-        return jsonify({"data": "failure"})
+        return jsonify({"id": "failure", "data": "User already exist!"})
 
     projectUsers.append(userid)
     projects.update_one(myquery, {"$set": {"users": projectUsers}})
@@ -211,9 +180,7 @@ def leaveProject(projectid, user):
         return jsonify({"data": "failure"})
 
     projectUsers = x['users']
-    if len(projectUsers) == 1:
-        projects.delete_one(myquery)
-    else:
+    if user in projectUsers:
         projectUsers.remove(user)
         projects.update_one(myquery, {"$set": {"users": projectUsers}})
 

@@ -114,7 +114,6 @@ function Project({project,hwset}) {
 
   const clickLeft=()=>{
 
-    setProjectState(true);
 
     const config={
       headers:{
@@ -132,9 +131,13 @@ function Project({project,hwset}) {
     .then((response) => {
         console.log(response.data);
         alert('Left '+response.data);
+
+      setProjectState(true);
     }).catch((err)=>{
       console.log('err',err);
     });
+
+
 
   };
 

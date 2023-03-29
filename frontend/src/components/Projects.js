@@ -25,9 +25,6 @@ function Projects() {
 
     if(!projectState)return;
 
-    
-    setProjectState(false);
-
     const config={
       headers:{
         'content-type':'application/json',
@@ -46,9 +43,13 @@ function Projects() {
       else {
         setProjectData(response.data);
       }
+
+    setProjectState(false);
     }).catch((err)=>{
       console.log('err',err);
     });
+
+
   },[projectState]);
         
   return (

@@ -21,7 +21,6 @@ function CreateProject({project}) {
         return;
     }
 
-    setProjectState(true);
     
 
     var data={};
@@ -50,9 +49,14 @@ function CreateProject({project}) {
         return;
       }
       alert("Created Project!!");
+
+      setProjectState(true);
+      
     }).catch((err)=>{
       console.log('err',err);
     });
+
+
 
   };
 
