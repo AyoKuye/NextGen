@@ -31,7 +31,7 @@ function Project({project,hwset}) {
 
     axios.post(backendLink+'/api/checkin/'+project.ProjectId+"/"+hwset1qty, config)
     .then((response) => {
-        alert(response.data[1]+' hardware checked in');
+        alert(response.data['data']+' hardware checked in');
     }).catch((err)=>{
       console.log('err',err);
     });
@@ -173,22 +173,22 @@ function Project({project,hwset}) {
             </div>
             <div>
                 <div>
-                    <button id="Checkin" className = "bg-gray-300 p-2 m-1">Check In</button>
+                    <button id="Checkin" className = "bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded text-white m-1" onClick={()=>clickCheckin1()}>Check In</button>
                 </div>
                 <div>
-                    <button id="Checkin" className = "bg-gray-300 p-2 m-1">Check In</button>
+                    <button id="Checkin" className = "bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded text-white m-1" onClick={()=>clickCheckin2()}>Check In</button>
                 </div>
             </div>
             <div>
                 <div>
-                    <button id="Checkout" className = "bg-gray-300 p-2 m-1">Check Out</button>
+                    <button id="Checkout" className = "bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded text-white m-1" onClick={()=>clickCheckout1()}>Check Out</button>
                 </div>
                 <div>
-                    <button id="Checkout" className = "bg-gray-300 p-2 m-1">Check Out</button>
+                    <button id="Checkout" className = "bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded text-white m-1" onClick={()=>clickCheckout2()}>Check Out</button>
                 </div>
             </div>
          <div>
-          <button id="join-leave" className = "bg-gray-300 py-2 px-4 m-2" onClick={()=>clickLeft()}>Leave</button> 
+          <button id="join-leave" className = "bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded text-white font-bold m-2" onClick={()=>clickLeft()}>Leave</button> 
           </div>
       </div>
         

@@ -51,7 +51,7 @@ function CreateProject({project}) {
       alert("Created Project!!");
 
       setProjectState(true);
-      
+
     }).catch((err)=>{
       console.log('err',err);
     });
@@ -76,7 +76,7 @@ function CreateProject({project}) {
           </div>
         </div>
         <div>
-          <button id="join-leave" className = "bg-gray-300 py-2 px-4 m-2" onClick={()=>createProject()}>Create Project</button> 
+          <button id="join-leave" className = "bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded text-white m-2" onClick={()=>createProject()}>Create Project</button> 
         </div>
       </div>
     </div>

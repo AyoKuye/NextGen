@@ -65,11 +65,13 @@ function Home() {
       <div className='flex justify-between'>
       <div className='align-middle justify-center mx-20 my-10'>
           <input type="text" id="qty" className='w-60 items-center align-middle py-1 px-1 m-1 border-solid border-2 border-black' placeholder="Project ID" onChange={(e)=>setProjectID(e.target.value)}/>
-          <button id="join" className = "bg-gray-300 p-2 m-1" onClick={()=>{clickJoin()}}>Join</button>
+          <button id="join" className = "bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded text-white m-1" onClick={()=>{clickJoin()}}>Join</button>
         </div>
         <div className="col-sm-4">
           <h1>
-            <a href="/" onClick={onLogout} className='p-2 m-6'>Logout</a>
+            <a href="/" onClick={onLogout}>
+              <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded m-3'>Logout</button>
+              </a>
           </h1>
         </div>
         
