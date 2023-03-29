@@ -8,7 +8,7 @@ const backendLink="http://127.0.0.1:5000"
 function Project({project,hwset}) {
 
 
-    const { projectState,setProjectState} = useContext(AuthContext);
+    const { user,projectState,setProjectState} = useContext(AuthContext);
     const [hwset1qty,setHWSet1qty]=useState(0);
     const [hwset2qty,setHWSet2qty]=useState(0);
 
@@ -29,7 +29,7 @@ function Project({project,hwset}) {
 
 
 
-    axios.post(backendLink+'/api/checkin/'+project.id+"/"+hwset1qty, config)
+    axios.post(backendLink+'/api/checkin/'+project.ProjectId+"/"+hwset1qty, config)
     .then((response) => {
         alert(response.data[1]+' hardware checked in');
     }).catch((err)=>{
@@ -53,7 +53,7 @@ function Project({project,hwset}) {
 
 
 
-    axios.post(backendLink+'/api/checkout/'+project.id+"/"+hwset1qty, config)
+    axios.post(backendLink+'/api/checkout/'+project.ProjectId+"/"+hwset1qty, config)
     .then((response) => {
         alert(response.data[1]+' hardware checked out');
     }).catch((err)=>{
@@ -78,7 +78,7 @@ function Project({project,hwset}) {
 
 
 
-    axios.post(backendLink+'/api/checkin/'+project.id+"/"+hwset2qty, config)
+    axios.post(backendLink+'/api/checkin/'+project.ProjectId+"/"+hwset2qty, config)
     .then((response) => {
         alert(response.data[1]+' hardware checked in');
     }).catch((err)=>{
@@ -102,7 +102,7 @@ function Project({project,hwset}) {
 
 
 
-    axios.post(backendLink+'/api/checkout/'+project.id+"/"+hwset2qty, config)
+    axios.post(backendLink+'/api/checkout/'+project.ProjectId+"/"+hwset2qty, config)
     .then((response) => {
         alert(response.data[1]+' hardware checked out');
     }).catch((err)=>{
@@ -128,7 +128,7 @@ function Project({project,hwset}) {
 
 
 
-    axios.post(backendLink+'/api/leave/'+project.id, config)
+    axios.post(backendLink+'/api/leave/'+project.ProjectId+"/"+user, config)
     .then((response) => {
         console.log(response.data);
         alert('Left '+response.data);

@@ -11,12 +11,15 @@ function Home() {
 
   const navigate = useNavigate();
 
-  const { logout,state,user} = useContext(AuthContext);
+  const { logout,state,user,setProjectState} = useContext(AuthContext);
 
   const [projectid,setProjectID]=useState('');
 
  
   const clickJoin=()=>{
+
+
+    setProjectState(true);
 
     const config={
       headers:{
