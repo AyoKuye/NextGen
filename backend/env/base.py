@@ -19,6 +19,7 @@ hardwaredb = client.hardwareSet
 passwords = passworddb.password
 projects = projectdb.project
 users = usersdb.user
+hardware = hardwaredb.hardware
 
 # Incoming- {'userid': , 'password': }
 # Outgoing-
@@ -93,12 +94,12 @@ def createProject():
 
     myquery2 = {"userId": request.json['user']}
     x2 = users.find_one(myquery2)
-    temp2 = list(x2['projectId'])
+    temp2 = x2['projectId']
     newstr = request.json['projectID']
-    print(type(temp2))
-    print(newstr)
+    # print(type(temp2))
+    # print(newstr)
     temp2.append(newstr)
-    print(temp2)
+    # print(temp2)
     x3 = {"$set": {'projectId': temp2}}
     users.update_one(myquery2, x3)
 
@@ -133,18 +134,44 @@ def checkIn_hardware(projectid, qty):
     return jsonify({"data": "success"})
 
 
-@api.route('/api/checkout/<projectid>/<qty>', methods=['POST', 'GET'])
-def checkOut_hardware(projectid, qty):
+@api.route('/api/checkout/<projectid>/<set>/<qty>', methods=['POST', 'GET'])
+def checkOut_hardware(projectid, set, qty):
+    print(projectid + " " + set + " " + qty)
     myquery = {"ProjectId": projectid}
     x = projects.find_one(myquery)
+
     if x is None:
         return jsonify({"data": "failure"})
 
-    new_qty = x['hwset1'] - int(qty)
-    if new_qty < 0:
+    myquery2 = {"name": set}
+    x2 = hardware.find_one(myquery2)
+    # print(x2)
+    if x2 is None:
         return jsonify({"data": "failure"})
+    value = x2["value"]
 
-    projects.update_one(myquery, {"$set": {"hwset1": new_qty}})
+    checkoutqty = int(qty)
+
+    # print(value)
+    if value < checkoutqty:
+        checkoutqty = value
+    # print(checkoutqty)
+    x3 = {"$set": {'value': value-checkoutqty}}
+    hardware.update_one(myquery2, x3)
+
+    x4 = {"$set": {set: x[set]+checkoutqty}}
+    projects.update_one(myquery, x4)
+    return jsonify({"data": "success"})
+
+
+
+
+
+    # new_qty = x['hwset1'] - int(qty)
+    # if new_qty < 0:
+    #     return jsonify({"data": "failure"})
+    #
+    # projects.update_one(myquery, {"$set": {"hwset1": new_qty}})
 
     return jsonify({"data": "success"})
 
