@@ -121,15 +121,27 @@ def getProjects(user):
     return json.loads(dumps(allproject))
 
 
-@api.route('/api/checkin/<projectid>/<qty>', methods=['POST', 'GET'])
-def checkIn_hardware(projectid, qty):
+@api.route('/api/checkin/<projectid>/<set>/<qty>', methods=['POST', 'GET'])
+def checkIn_hardware(projectid, set, qty):
+    print(projectid + " " + set + " " + qty)
     myquery = {"ProjectId": projectid}
     x = projects.find_one(myquery)
     if x is None:
         return jsonify({"data": "failure"})
 
-    new_qty = x['hwset1'] + int(qty)
-    projects.update_one(myquery, {"$set": {"hwset1": new_qty}})
+    checkinqty = int(qty)
+    if checkinqty > x[set]:
+        checkinqty = x[set]
+
+    print(checkinqty)
+    x4 = {"$set": {set: x[set] - checkinqty}}
+    projects.update_one(myquery, x4)
+
+    myquery2 = {"name": set}
+    x2 = hardware.find_one(myquery2)
+
+    x3 = {"$set": {'value': x2['value'] + checkinqty}}
+    hardware.update_one(myquery2, x3)
 
     return jsonify({"data": "success"})
 
@@ -155,23 +167,13 @@ def checkOut_hardware(projectid, set, qty):
     # print(value)
     if value < checkoutqty:
         checkoutqty = value
-    # print(checkoutqty)
+    print(checkoutqty)
     x3 = {"$set": {'value': value-checkoutqty}}
     hardware.update_one(myquery2, x3)
 
     x4 = {"$set": {set: x[set]+checkoutqty}}
     projects.update_one(myquery, x4)
     return jsonify({"data": "success"})
-
-
-
-
-
-    # new_qty = x['hwset1'] - int(qty)
-    # if new_qty < 0:
-    #     return jsonify({"data": "failure"})
-    #
-    # projects.update_one(myquery, {"$set": {"hwset1": new_qty}})
 
     return jsonify({"data": "success"})
 
