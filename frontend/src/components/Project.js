@@ -41,6 +41,7 @@ function Project({project,hwset}) {
 
   const clickCheckout1=()=>{
 
+
     const config={
       headers:{
         'content-type':'application/json',
@@ -89,6 +90,7 @@ function Project({project,hwset}) {
 
 
   const clickCheckout2=()=>{
+
 
     const config={
       headers:{
@@ -165,26 +167,26 @@ function Project({project,hwset}) {
             </div>
             <div>
                 <div>
-                    <input type="number" id="qty" className='w-25 py-1 px-1 m-1 border-solid border-2 border-black' placeholder="Enter qty" />
+                    <input type="number" id="qty" className='w-25 py-1 px-1 m-1 border-solid border-2 border-black' placeholder="Enter qty" onChange={(e)=>setHWSet1qty(e.target.value)}/>
                 </div>
                 <div>
-                    <input type="number"  id="qty" className='w-25 py-1 px-1 m-1 border-solid border-2 border-black' placeholder="Enter qty" />
-                </div>
-            </div>
-            <div>
-                <div>
-                    <button id="Checkin" className = "bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded text-white m-1" onClick={()=>clickCheckin1()}>Check In</button>
-                </div>
-                <div>
-                    <button id="Checkin" className = "bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded text-white m-1" onClick={()=>clickCheckin2()}>Check In</button>
+                    <input type="number"  id="qty" className='w-25 py-1 px-1 m-1 border-solid border-2 border-black' placeholder="Enter qty" onChange={(e)=>setHWSet2qty(e.target.value)} />
                 </div>
             </div>
             <div>
                 <div>
-                    <button id="Checkout" className = "bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded text-white m-1" onClick={()=>clickCheckout1()}>Check Out</button>
+                    <button id="Checkin" className = "bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded text-white m-1" onClick={(e)=>clickCheckin1(e)}>Check In</button>
                 </div>
                 <div>
-                    <button id="Checkout" className = "bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded text-white m-1" onClick={()=>clickCheckout2()}>Check Out</button>
+                    <button id="Checkin" className = "bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded text-white m-1" onClick={(e)=>clickCheckin2(e)}>Check In</button>
+                </div>
+            </div>
+            <div>
+                <div>
+                    <button id="Checkout" className = "bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded text-white m-1" onClick={(e)=>clickCheckout1(e)}>Check Out</button>
+                </div>
+                <div>
+                    <button id="Checkout" className = "bg-blue-500 hover:bg-blue-700 py-2 px-4 rounded text-white m-1" onClick={(e)=>clickCheckout2(e)}>Check Out</button>
                 </div>
             </div>
          <div>
