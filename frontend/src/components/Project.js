@@ -35,7 +35,9 @@ function Project({project,hwset1,hwset2}) {
         alert('failure')
       }
       else {
+        
         alert(response.data['data']+' hardware checked in');
+        setProjectState(true);
       }
     }).catch((err)=>{
       console.log('err',err);
@@ -45,6 +47,8 @@ function Project({project,hwset1,hwset2}) {
 
 
   const clickCheckout1=()=>{
+
+
 
 
     const config={
@@ -66,6 +70,7 @@ function Project({project,hwset1,hwset2}) {
       }
       else {
         alert(response.data['data']+' hardware checked in');
+        setProjectState(true);
       }
     }).catch((err)=>{
       console.log('err',err);
@@ -75,6 +80,8 @@ function Project({project,hwset1,hwset2}) {
 
 
   const clickCheckin2=()=>{
+
+
 
 
     const config={
@@ -97,6 +104,7 @@ function Project({project,hwset1,hwset2}) {
       }
       else {
         alert(response.data['data']+' hardware checked in');
+        setProjectState(true);
       }
     }).catch((err)=>{
       console.log('err',err);
@@ -106,6 +114,8 @@ function Project({project,hwset1,hwset2}) {
 
 
   const clickCheckout2=()=>{
+
+
 
 
     const config={
@@ -128,6 +138,7 @@ function Project({project,hwset1,hwset2}) {
       }
       else {
         alert(response.data['data']+' hardware checked in');
+        setProjectState(true);
       }
 
     }).catch((err)=>{
@@ -182,10 +193,10 @@ function Project({project,hwset1,hwset2}) {
         </div> */}
             <div className='px-2 justify-between flex flex-col items-center mx-5'>
                 <div className='my-1'>
-                    HWSet1: {hwset1}/100  
+                    HWSet1: {hwset1}/1000
                 </div>
                 <div className='my-1'>
-                    HWSet2: {hwset2}/100  
+                    HWSet2: {hwset2}/1000  
                 </div>
             </div>
             <div>
