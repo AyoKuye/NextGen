@@ -15,6 +15,8 @@ function Projects() {
 
   const { logout,state,user,projectState,setProjectState} = useContext(AuthContext);
   const [projectData,setProjectData]=useState([]);
+  const [hwSet1,setHWSet1]=useState([]);
+  const [hwSet2,setHWSet2]=useState([]);
 
   useEffect(()=>{
     
@@ -41,7 +43,11 @@ function Projects() {
         alert("User does not exist! Please SignUp")
       }
       else {
-        setProjectData(response.data);
+        console.log(response.data);
+        setProjectData(response.data['data']);
+        console.log(response.data['hardware'][0]['value']);
+        setHWSet1(response.data['hardware'][0]['value']);
+        setHWSet2(response.data['hardware'][1]['value']);
       }
 
     setProjectState(false);
@@ -59,7 +65,7 @@ function Projects() {
           <h1>Projects</h1>
         </div>
         {projectData && projectData.map((project) => (
-          <Project key={project._id} project={project} />
+          <Project key={project._id} project={project} hwset1={hwSet1} hwset2={hwSet2}/>
         ))}
       </div>
       <div>

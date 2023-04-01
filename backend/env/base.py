@@ -96,10 +96,7 @@ def createProject():
     x2 = users.find_one(myquery2)
     temp2 = x2['projectId']
     newstr = request.json['projectID']
-    # print(type(temp2))
-    # print(newstr)
     temp2.append(newstr)
-    # print(temp2)
     x3 = {"$set": {'projectId': temp2}}
     users.update_one(myquery2, x3)
 
@@ -118,7 +115,12 @@ def getProjects(user):
         x = projects.find_one(myquery2)
         allproject.append(x)
 
-    return json.loads(dumps(allproject))
+    data = {}
+
+    data['data'] = json.loads(dumps(allproject))
+    data["hardware"] = json.loads(dumps(hardware.find()))
+
+    return data
 
 
 @api.route('/api/checkin/<projectid>/<set>/<qty>', methods=['POST', 'GET'])

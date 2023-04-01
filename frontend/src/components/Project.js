@@ -5,7 +5,7 @@ import { AuthContext } from '../context/Auth.context.js';
 
 const backendLink="http://127.0.0.1:5000"
 
-function Project({project,hwset}) {
+function Project({project,hwset1,hwset2}) {
 
 
     const { user,projectState,setProjectState} = useContext(AuthContext);
@@ -31,7 +31,12 @@ function Project({project,hwset}) {
 
     axios.post(backendLink+'/api/checkin/'+project.ProjectId+"/"+"hwset1"+"/"+hwset1qty, config)
     .then((response) => {
+      if(response.data['data']=='failure'){
+        alert('failure')
+      }
+      else {
         alert(response.data['data']+' hardware checked in');
+      }
     }).catch((err)=>{
       console.log('err',err);
     });
@@ -56,7 +61,12 @@ function Project({project,hwset}) {
 
     axios.post(backendLink+'/api/checkout/'+project.ProjectId+"/"+"hwset1"+"/"+hwset1qty, config)
     .then((response) => {
-        alert(response.data[1]+' hardware checked out');
+      if(response.data['data']=='failure'){
+        alert('failure')
+      }
+      else {
+        alert(response.data['data']+' hardware checked in');
+      }
     }).catch((err)=>{
       console.log('err',err);
     });
@@ -81,7 +91,13 @@ function Project({project,hwset}) {
 
     axios.post(backendLink+'/api/checkin/'+project.ProjectId+"/"+"hwset2"+"/"+hwset2qty, config)
     .then((response) => {
-        alert(response.data[1]+' hardware checked in');
+
+      if(response.data['data']=='failure'){
+        alert('failure')
+      }
+      else {
+        alert(response.data['data']+' hardware checked in');
+      }
     }).catch((err)=>{
       console.log('err',err);
     });
@@ -106,7 +122,14 @@ function Project({project,hwset}) {
 
     axios.post(backendLink+'/api/checkout/'+project.ProjectId+"/"+"hwset2"+"/"+hwset2qty, config)
     .then((response) => {
-        alert(response.data[1]+' hardware checked out');
+      
+      if(response.data['data']=='failure'){
+        alert('failure')
+      }
+      else {
+        alert(response.data['data']+' hardware checked in');
+      }
+
     }).catch((err)=>{
       console.log('err',err);
     });
@@ -159,10 +182,10 @@ function Project({project,hwset}) {
         </div> */}
             <div className='px-2 justify-between flex flex-col items-center mx-5'>
                 <div className='my-1'>
-                    {/* HWSet1: {hwset.hwset1.checkedOutQty}/100   */}
+                    HWSet1: {hwset1}/100  
                 </div>
                 <div className='my-1'>
-                    {/* HWSet2: {hwset.hwset2.checkedOutQty}/100   */}
+                    HWSet2: {hwset2}/100  
                 </div>
             </div>
             <div>
