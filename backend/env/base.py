@@ -189,7 +189,7 @@ def joinProject(projectid, userid):
 
     projectUsers = x['users']
     if userid in projectUsers:
-        return jsonify({"id": "failure", "data": "User already exist!"})
+        return jsonify({"id": "failure", "data": "You are already part of the project!"})
 
     projectUsers.append(userid)
     projects.update_one(myquery, {"$set": {"users": projectUsers}})

@@ -166,7 +166,7 @@ function Project({project,hwset1,hwset2}) {
     axios.post(backendLink+'/api/leave/'+project.ProjectId+"/"+user, config)
     .then((response) => {
         console.log(response.data);
-        alert('Left '+response.data);
+        alert('Left '+response.data['data']);
 
       setProjectState(true);
     }).catch((err)=>{

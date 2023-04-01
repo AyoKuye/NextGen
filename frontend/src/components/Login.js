@@ -9,7 +9,7 @@ const backendLink="http://127.0.0.1:5000"
 const Login = () => {
 
 
-  const { login } = useContext(AuthContext);
+  const { login,setProjectState } = useContext(AuthContext);
 
   const navigate = useNavigate();
   const [isLogin,setIsLogin] = useState(true);
@@ -56,6 +56,7 @@ const Login = () => {
       else {
         alert("Done Login")
         login(loginUserID);
+        setProjectState(true);
         navigate("/home")
       }
     }).catch((err)=>{
