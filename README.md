@@ -2,6 +2,8 @@
 
 ## [Github Link](https://github.com/AyoKuye/NextGen)
 
+## [Frontend Website Link](next-gen-blush.vercel.app)
+
 # Getting started with Backend
 
 ## Installs needed
