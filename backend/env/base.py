@@ -27,6 +27,51 @@ hardware = hardwaredb.hardware
 # if failure {"data": 208}
 
 
+# encryption function
+def encrypt(inputText, N, D):
+    # convert string to list
+    inputText = list(inputText)
+
+    # reverse the list
+    inputText.reverse()
+
+    # +1 shift right else left
+    if D == 1:
+        for i in range(0, len(inputText)):
+            if inputText[i] == ' ' or inputText[i] == '!':
+                print("Input text can't contain \' \' and !")
+            else:
+                inputText[i] = chr(ord(inputText[i])+N)
+    else:
+        for i in range(0, len(inputText)):
+            if inputText[i] == ' ' or inputText[i] == '!':
+                print("Input text can't contain \' \' and !")
+            else:
+                inputText[i] = chr(ord(inputText[i])-N)
+    answerString = "".join(inputText)
+    return answerString
+
+# decryption function
+
+
+def decrypt(inputText, N, D):
+    # convert string to list
+    inputText = list(inputText)
+
+    # reverse the list
+    inputText.reverse()
+
+    # +1 shift right else left
+    if D == 1:
+        for i in range(0, len(inputText)):
+            inputText[i] = chr(ord(inputText[i])-N)
+    else:
+        for i in range(0, len(inputText)):
+            inputText[i] = chr(ord(inputText[i])+N)
+    answerString = "".join(inputText)
+    return answerString
+
+
 @api.route('/api/login/', methods=['POST'])
 def log():
     print(request.json)
