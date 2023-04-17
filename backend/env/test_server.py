@@ -17,6 +17,25 @@ def test_encrption_decryption():
     assert (decrypteduserid == userID) & (decryptedpassword == password)
 
 
+def test_login():
+    app.config['TESTING'] = True
+    client = app.test_client()
+
+    test_user = "testUser"
+    test_password = "testPassword"
+
+    with client:
+
+        test_user_data = {"userId": test_user, "password": test_password}
+        passwords.insert_one(test_user_data)
+        # Test  login
+        assert login(test_user, test_password) == True
+        # Test  username
+        assert login("invalidUser", test_password) == False
+        # Test  password
+        assert login(test_user, "invalidPassword") == False
+        # Test  username and password
+        assert login("invalidUser", "invalidPassword") == False
 
 def test_create_project():
     app.config['TESTING'] = True
