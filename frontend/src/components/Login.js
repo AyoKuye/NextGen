@@ -3,8 +3,10 @@ import axios from 'axios';
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from '../context/Auth.context.js';
 
+import packageJson from '../../package.json'
 
-const backendLink="http://127.0.0.1:5000"
+
+const backendLink=packageJson.backendLink;
 
 const Login = () => {
 
